@@ -1,0 +1,16 @@
+### venv ###
+venv
+
+### Data ###
+# some contracts require an NDA
+data/contracts/
+
+### JupyterNotebooks ###
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+### macOS ###
+.DS_Store
+
+### PyCharm ###
+.idea
