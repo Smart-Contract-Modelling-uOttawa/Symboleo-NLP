@@ -2,7 +2,7 @@ import re
 import json
 
 contract = open('../../data/contracts/DPA Data Processing Addendum - 2019 - Final.txt', 'r').read()
-sentence_list = re.split(r'\n+ ?\t*', contract)
+sentence_list = re.split(r'(?<![0-9])[.!?]\s+|[.!?]?\s*\n+', contract)
 
 sentences = []
 for i, sentence in enumerate(sentence_list):
