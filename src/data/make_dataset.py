@@ -31,8 +31,11 @@ while idx < len(statement_list):
             sub_clause = {}
         if clause:
             clauses.append(clause)
+
+        title_list = statement.split('\t')
         clause = {
-            'title': statement,
+            'title_number': title_list[0],
+            'title_text': title_list[1].strip(),
             'sentences': [],
             'sub_clauses': []
         }
@@ -42,16 +45,22 @@ while idx < len(statement_list):
             sub_sub_clause = {}
         if sub_clause:
             clause['sub_clauses'].append(sub_clause)
+
+        title_list = statement.split('\t')
         sub_clause = {
-            'title': statement,
+            'title_number': title_list[0],
+            'title_text': title_list[1].strip(),
             'sentences': [],
             'sub_clauses': []
         }
     elif SUB_SUB_CLAUSE_RE.match(statement):
         if sub_sub_clause:
             sub_clause['sub_clauses'].append(sub_sub_clause)
+
+        title_list = statement.split('\t')
         sub_sub_clause = {
-            'title': statement,
+            'title_number': title_list[0],
+            'title_text': title_list[1].strip(),
             'sentences': [],
             'sub_clauses': []
         }
