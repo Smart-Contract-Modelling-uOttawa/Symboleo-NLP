@@ -73,6 +73,7 @@ while idx < len(statement_list):
                     'id': sentence_id,
                     'text': sentence,
                     'type': 'regular',
+                    'modality': None,
                     'symboleo_elements': {
                         'trigger': None,
                         'debtor': None,
@@ -87,6 +88,7 @@ while idx < len(statement_list):
                     'id': sentence_id,
                     'text': sentence,
                     'type': 'regular',
+                    'modality': None,
                     'symboleo_elements': {
                         'trigger': None,
                         'debtor': None,
@@ -104,6 +106,7 @@ while idx < len(statement_list):
                     'id': sentence_id,
                     'text': sentence,
                     'type': 'regular',
+                    'modality': None,
                     'symboleo_elements': {
                         'trigger': None,
                         'debtor': None,
