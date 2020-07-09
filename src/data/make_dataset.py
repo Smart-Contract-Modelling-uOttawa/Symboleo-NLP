@@ -1,16 +1,16 @@
 import re
 import json
 
-STATEMENT_RE = r'\n+ ?\t*'
-SENTENCE_RE = r'(?<![0-9])[.!?]\s+|[.!?]?\s*\n+'
-CLAUSE_RE = r'\d+\.\s+.*'
-SUB_CLAUSE_RE = r'\d+\.\d+\s+.*'
-SUB_SUB_CLAUSE_RE = r'\d+\.\d+\.\d+\s+.*'
+STATEMENT_RE = re.compile(r'\n+ ?\t*')
+SENTENCE_RE = re.compile(r'(?<=(?<![0-9])[.!?])\s+|(?<=[.!?])?\s*\n+')
+CLAUSE_RE = re.compile(r'\d+\.\s+.*')
+SUB_CLAUSE_RE = re.compile(r'\d+\.\d+\s+.*')
+SUB_SUB_CLAUSE_RE = re.compile(r'\d+\.\d+\.\d+\s+.*')
 
 contract_text = open('../../data/contracts/DPA Data Processing Addendum - 2019 - Final.txt', 'r').read()
 
 # extract statements
-statement_list = re.split(STATEMENT_RE, contract_text)
+statement_list = STATEMENT_RE.split(contract_text)
 
 contract = {}
 clauses = []
@@ -22,7 +22,7 @@ sentence_id = 1
 
 while idx < len(statement_list):
     statement = statement_list[idx]
-    if re.match(CLAUSE_RE, statement):
+    if CLAUSE_RE.match(statement):
         if sub_sub_clause:
             sub_clause['sub_clauses'].append(sub_sub_clause)
             sub_sub_clause = {}
@@ -31,29 +31,32 @@ while idx < len(statement_list):
             sub_clause = {}
         if clause:
             clauses.append(clause)
-        clause = {}
-        clause['title'] = statement
-        clause['sentences'] = []
-        clause['sub_clauses'] = []
-    elif re.match(SUB_CLAUSE_RE, statement):
+        clause = {
+            'title': statement,
+            'sentences': [],
+            'sub_clauses': []
+        }
+    elif SUB_CLAUSE_RE.match(statement):
         if sub_sub_clause:
             sub_clause['sub_clauses'].append(sub_sub_clause)
             sub_sub_clause = {}
         if sub_clause:
             clause['sub_clauses'].append(sub_clause)
-        sub_clause = {}
-        sub_clause['title'] = statement
-        sub_clause['sentences'] = []
-        sub_clause['sub_clauses'] = []
-    elif re.match(SUB_SUB_CLAUSE_RE, statement):
+        sub_clause = {
+            'title': statement,
+            'sentences': [],
+            'sub_clauses': []
+        }
+    elif SUB_SUB_CLAUSE_RE.match(statement):
         if sub_sub_clause:
             sub_clause['sub_clauses'].append(sub_sub_clause)
-        sub_sub_clause = {}
-        sub_sub_clause['title'] = statement
-        sub_sub_clause['sentences'] = []
-        sub_sub_clause['sub_clauses'] = []
+        sub_sub_clause = {
+            'title': statement,
+            'sentences': [],
+            'sub_clauses': []
+        }
     else:
-        for sentence in re.split(SENTENCE_RE, statement):
+        for sentence in SENTENCE_RE.split(statement):
             if not sentence:
                 continue
             elif sub_sub_clause:
