@@ -49,14 +49,16 @@ for statement in statement_list:
                 'text': sentence,
                 'type': 'regular',
                 'modality': None,
-                'symboleo_elements': {
-                    'trigger': None,
-                    'debtor': None,
-                    'creditor': None,
-                    'antecedent': None,
-                    'consequent': None,
-                    'asset': None
-                },
+                'symboleo_elements': [
+                    {
+                        'trigger': None,
+                        'debtor': None,
+                        'creditor': None,
+                        'antecedent': None,
+                        'consequent': None,
+                        'asset': None
+                    }
+                ],
                 'enumeration': []
             }
 
