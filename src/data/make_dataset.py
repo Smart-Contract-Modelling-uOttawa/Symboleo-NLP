@@ -4,6 +4,7 @@ import json
 STATEMENT_RE = re.compile(r'\n+ ?\t*')
 SENTENCE_RE = re.compile(r'(?<=(?<![0-9])[.!?])\s+|(?<=[.!?])?\s*\n+')
 ALL_CLAUSE_RE = re.compile(r'\d+\.(\d+\.?)*\s+.*')
+ENUMERATION_RE = re.compile(r'\(x*v*i*v*x*\)\s+')
 
 contract_text = open('../../data/contracts/DPA Data Processing Addendum - 2019 - Final.txt', 'r').read()
 
@@ -43,7 +44,7 @@ for statement in statement_list:
             if not sentence:
                 continue
 
-            clause_stack[-1]['sentences'].append({
+            sentence_obj = {
                 'id': sentence_id,
                 'text': sentence,
                 'type': 'regular',
@@ -55,8 +56,14 @@ for statement in statement_list:
                     'antecedent': None,
                     'consequent': None,
                     'asset': None
-                }
-            })
+                },
+                'enumeration': []
+            }
+
+            if ENUMERATION_RE.match(sentence):
+                clause_stack[-1]['sentences'][-1]['enumeration'].append(sentence_obj)
+            else:
+                clause_stack[-1]['sentences'].append(sentence_obj)
 
             sentence_id += 1
 
