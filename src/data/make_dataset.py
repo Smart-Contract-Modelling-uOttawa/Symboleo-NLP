@@ -2,7 +2,7 @@ import re
 import json
 
 STATEMENT_RE = re.compile(r'\n+ ?\t*')
-SENTENCE_RE = re.compile(r'(?<=(?<![0-9])[.!?])\s+|(?<=[.!?])?\s*\n+')
+SENTENCE_RE = re.compile(r'(?<=(?<![0-9])(?<!e\.g)(?<!i\.e)[.!?])\s+|(?<=[.!?])?\s*\n+')
 ALL_CLAUSE_RE = re.compile(r'\d+\.(\d+\.?)*\s+.*')
 ENUMERATION_RE = re.compile(r'\(x*v*i*v*x*\)\s+')
 
